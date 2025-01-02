@@ -7,8 +7,7 @@ struct Queue {
 };
 
 
-bool isFull (struct Queue *Q) 
-{
+bool isFull (struct Queue *Q) {
     if(Q->REAR == MAX - 1) {
         return true;
     }
@@ -23,8 +22,7 @@ bool isEmpty (struct Queue *Q) {
 }
 
 void enqueue (struct Queue *Q, int add) {
-    if(isFull(Q)) // Since Q is a pointer to a Queue structure (struct Queue *Q), the address of the Queue structure is being passed to the isFull function.
-    {
+    if(isFull(Q)) {
         printf("Queue is full\n");
     } else {
         Q->REAR++;
@@ -37,12 +35,14 @@ void enqueue (struct Queue *Q, int add) {
 void dequeue (struct Queue *Q) {
     if(isEmpty(Q)) {
         printf("Queue is Empty\n");
-    } 
-    else {
+    } else {
         printf("Removed %d from the queue\n", Q->Data[Q->FRONT]);
+        printf("Front value is %d\n", Q->FRONT);
         Q->FRONT++;
-    }
 }
+    }
+    
+       
 
 void front (struct Queue *Q) {
     if(isEmpty(Q)) {
