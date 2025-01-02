@@ -2,7 +2,8 @@
 #include "stdbool.h"
 #define MAX 5
 struct Queue {
-    int  FRONT, REAR;
+    int  FRONT;
+    int REAR;
     int Data[MAX];
 };
 
@@ -15,7 +16,7 @@ bool isFull (struct Queue *Q)
     return false;
 }
 
-bool   isEmpty (struct Queue *Q) {
+bool isEmpty (struct Queue *Q) {
     if(Q->REAR < Q->FRONT) {
         return true;
     }
@@ -65,22 +66,33 @@ void display (struct Queue *Q) {
 }
 
 int main() {
-    struct Queue Q;
-    Q.FRONT = 0;
-    Q.REAR = -1;
-    enqueue(&Q, 1);
-    enqueue(&Q, 2);
-    enqueue(&Q, 3);
-    front(&Q);
-    display(&Q);
-    dequeue(&Q);
-    front(&Q);
-    display(&Q);
-    dequeue(&Q);
-    front(&Q);
-    display(&Q);
-    dequeue(&Q);
-    front(&Q);
-    display(&Q);
+    struct Queue Q={0,-1};
+    int choice, data;
+    do {
+        printf("***************************************\n");
+        printf("1. ENQUEUE\n2. DEQUEUE\n3. DISPLAY\n4. EXIT\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                printf("Enter the element to be enqueued: ");
+                scanf("%d", &data);
+                enqueue(&Q, data);
+                break;
+            case 2:
+                dequeue(&Q);
+                break;
+            case 3:
+                display(&Q);
+                break;
+            case 4:
+                printf("BYE!\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 4);
+
     return 0;
 }
