@@ -15,7 +15,7 @@ bool isFull (struct Queue *Q)
     return false;
 }
 
-bool isEmpty (struct Queue *Q) {
+bool   isEmpty (struct Queue *Q) {
     if(Q->REAR < Q->FRONT) {
         return true;
     }
