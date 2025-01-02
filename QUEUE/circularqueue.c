@@ -1,3 +1,5 @@
+// Follows no specific principle
+
 #include<stdio.h>
 
 #define MAX 5

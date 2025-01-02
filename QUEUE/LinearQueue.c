@@ -1,3 +1,7 @@
+// Follows FIFO (First In First Out) principle
+// Once the data is enqueued, it can only be dequeued from the front
+// Once the data is dequeued from the front, it cannot be enqueued again
+
 #include "stdio.h"
 #include "stdbool.h"
 #define MAX 5
