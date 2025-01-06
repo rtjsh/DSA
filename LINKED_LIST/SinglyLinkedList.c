@@ -11,7 +11,9 @@ struct SLL *first, *last = NULL;
 struct SLL* createNode(int element)
 {
     struct SLL *NewNode;
-    NewNode = (struct SLL*)malloc(sizeof(struct SLL));
+    NewNode = (struct SLL*)malloc(sizeof(struct SLL)); // Defalut return type of malloc is void* so we need to typecast it to struct SLL*
+    // Dynamic memory allocation is required for creating the NewNode in the linked list implementation because the size of the linked list is not fixed, and it grows or shrinks during runtime depending on the number of elements added or removed.
+    
     if(NewNode == NULL)  // Memory allocation fails as "NULL" is returned by "malloc()"
     {
         return NULL;
