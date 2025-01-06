@@ -1,86 +1,94 @@
-// Follows no specific principle
+/* A circular queue of size 𝑛 can hold at most (n−1) elements when implemented using an array. To utilize all 
+  n slots, you can maintain a separate variable (e.g., size) to track the number of elements in the queue explicitly as done in the program circularQueueAll.c. */
 
 #include<stdio.h>
+#include<stdbool.h>
 
 #define MAX 5
 
-struct CircularQueue {
+struct Queue {
     int FRONT;
     int REAR;
-    int size;
-    int DATA[MAX];
+    int Data[MAX];
 };
 
-typedef struct CircularQueue CQ;
+bool isFull(struct Queue *Q)
+{
+    return (Q->FRONT == (Q->REAR + 1) % MAX);
+}
 
-void enqueue(CQ *Q, int element) {
-    if (Q->size == MAX) {
-        printf("Queue is FULL.\n");
-    } else {
-        Q->DATA[Q->REAR] = element;
+bool isEmpty(struct Queue *Q)
+{
+    return (Q->FRONT == Q->REAR);
+}
+
+void Enqueue(struct Queue *Q, int add)
+{
+    if(isFull(Q))
+    {
+        printf("Queue is full\n");
+    }
+    else
+    {
+        Q->Data[Q->REAR] = add;
+        printf("Added %d to the queue\n", Q->Data[Q->REAR]);
         Q->REAR = (Q->REAR + 1) % MAX;
-        Q->size++;
-        printf("%d was ENQUEUED.\n", element);
     }
 }
 
-int dequeue(CQ *Q) {
-    if (Q->size == 0) {
-        printf("Queue is EMPTY.\n");
-        return -1; // Return -1 to indicate queue is empty
-    } else {
-        int element = Q->DATA[Q->FRONT];
+void Dequeue(struct Queue *Q)
+{
+    if(isEmpty(Q))
+    {
+        printf("Queue is Empty\n");
+    }
+    else
+    {
+        printf("Removed %d from the queue\n", Q->Data[Q->FRONT]);
         Q->FRONT = (Q->FRONT + 1) % MAX;
-        Q->size--;
-        return element;
     }
 }
 
-void display(CQ *Q) {
-    if (Q->size == 0) {
-        printf("Queue is EMPTY.\n");
-    } else {
-        printf("Queue elements are: ");
-        for (int i = 0; i < Q->size; i++) {
-            int index = (Q->FRONT + i) % MAX;
-            printf("%d ", Q->DATA[index]);
-        }
-        printf("\n");
-    }
-}
-
-int main() {
-    int choice, data;
-    CQ Q = {0, 0, 0};
-    
-    do {
+int main()
+{
+    struct Queue Q = {0, 0};
+    int choice,data;
+    do
+    {
         printf("***************************************\n");
         printf("1. ENQUEUE\n2. DEQUEUE\n3. DISPLAY\n4. EXIT\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        
-        switch (choice) {
+        switch(choice)
+        {
             case 1:
-                printf("Enter the element to be enqueued: ");
+                printf("Enter the data to be added: ");
                 scanf("%d", &data);
-                enqueue(&Q, data);
+                Enqueue(&Q, data);
                 break;
             case 2:
-                data = dequeue(&Q);
-                if (data != -1) {
-                    printf("Dequeued element: %d\n", data);
-                }
+                Dequeue(&Q);
                 break;
             case 3:
-                display(&Q);
+                if(isEmpty(&Q))
+                {
+                    printf("Queue is Empty\n");
+                }
+                else
+                {
+                printf("Queue elements are: ");
+                for(int i = Q.FRONT; i < Q.REAR; i++)
+                {
+                    printf("%d ", Q.Data[i]);
+                }
+                printf("\n");
+                }
                 break;
             case 4:
-                printf("BYE!\n");
+                printf("Exiting...\n");
                 break;
             default:
-                printf("Invalid choice. Please try again.\n");
+                printf("Invalid choice\n");
         }
-    } while (choice != 4);
-
-    return 0;
+    } while(choice != 4);
 }
