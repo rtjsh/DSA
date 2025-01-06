@@ -26,7 +26,7 @@ struct SLL* createNode(int element)
     }
 }
 
-void insertAtBeginning(int element)
+void   insertAtBeginning(int element)
 {
     struct SLL *NewNode = createNode(element);
     if(NewNode==NULL)
